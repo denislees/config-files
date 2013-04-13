@@ -1,0 +1,14 @@
++ Create a repo
+
++ clone your repo
+
++ (inside your directory do) 
+	git init
+	git add . -A
+	git commit -m "message"
+	git push
+	
++ add your origin
+	git remote add origin https://github.com/username/project.git
+	git push origin master
+
