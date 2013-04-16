@@ -1,0 +1,59 @@
+#!/bin/bash
+
+cd
+
+echo "** nginx: stop"
+sudo nginx -s stop
+
+echo "** nginx: start"
+sudo nginx
+
+echo "** elasticsearch: start"
+~/development/env/elasticsearch-0.19.8/bin/service/elasticsearch start
+
+cd ~/development/workspace/
+
+# git pegando as atualizacoes
+echo "** git: updating - ar-adm"
+cd ar-adm; git pull
+echo "** git: updating - ar-adm-partner"
+cd -; cd ar-adm-partner; git pull
+echo "** git: updating - ar-checkout"
+cd -; cd ar-checkout; git pull
+echo "** git: updating - ar-front"
+cd -; cd ar-front; git pull
+echo "** git: updating - ar-models"
+cd -; cd ar-models; git pull
+echo "** git: updating - ar-templates"
+cd -; cd ar-templates; git pull
+
+echo "** elasticsearch: delete index skus"
+curl -XDELETE 'http://localhost:9200/skus/'
+echo ""
+
+echo "** elasticsearch: add index skus"
+cd ~/development/workspace/ar-models/db-model/elasticsearch 
+chmod +x ./skus.json 
+./skus.json
+echo ""
+
+cd
+
+# zerando o banco de dados
+sync-db
+
+# iniciando os servidores
+gg-restart
+
+# verificando se o es server esta sendo executado
+sleep 2
+~/development/env/elasticsearch-0.19.8/bin/service/elasticsearch start
+sleep 2
+es start
+
+echo "monitorando o processamento"
+while :
+do
+	sysctl -n vm.loadavg
+	sleep 1
+done

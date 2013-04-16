@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo "Moving to default directory: ~/development/workspace"
+cd ~/development/workspace/
+echo "Cleaning for Eclipse: ar-adm"
+cd ar-adm; /Users/DenisLee/Scripts/clean-eclipse.sh 
+echo "Cleaning for Eclipse: ar-adm-partner"
+cd -; cd ar-adm-partner; /Users/DenisLee/Scripts/clean-eclipse.sh 
+echo "Cleaning for Eclipse: ar-checkout"
+cd -; cd ar-checkout; /Users/DenisLee/Scripts/clean-eclipse.sh 
+echo "Cleaning for Eclipse: ar-front"
+cd -; cd ar-front; /Users/DenisLee/Scripts/clean-eclipse.sh 
+echo "Cleaning for Eclipse: ar-models"
+cd -; cd ar-models; /Users/DenisLee/Scripts/clean-eclipse.sh 

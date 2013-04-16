@@ -1,0 +1,23 @@
+#!/bin/bash
+
+case $1 in
+
+	adm)
+	TARGET_SERVER='ar-adm'
+	;;
+
+	partner)
+	TARGET_SERVER='ar-adm-partner'
+	;;
+
+	front)
+	TARGET_SERVER='ar-front'
+	;;
+
+	checkout)
+	TARGET_SERVER='ar-checkout'
+	;;
+
+esac
+
+echo $TARGET_SERVER

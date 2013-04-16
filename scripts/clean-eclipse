@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "removendo .classpath"
+rm .classpath
+echo "removendo .project"
+rm .project
+echo "removendo .settings"
+rm -rf .settings
+echo "removendo target."
+rm -rf target
+echo "removendo target-eclipse"
+rm -rf target-eclipse
+echo "grails integrate -> eclipse"
+grails integrate-with --eclipse
+echo "fim"
+

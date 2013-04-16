@@ -1,0 +1,38 @@
+#!/bin/bash
+
+echo "closing all grails servers"
+killall java
+sleep 5
+
+echo "resetting all logs"
+echo "0 ar-adm" > ~/development/workspace/log/ar-adm.log 
+echo "0 ar-adm-partner" > ~/development/workspace/log/ar-adm-partner.log 
+echo "0 ar-front" > ~/development/workspace/log/ar-front.log 
+echo "0 ar-checkout" > ~/development/workspace/log/ar-checkout.log 
+
+echo "starting servers"
+cd
+cd development/workspace
+echo "ar-adm: start"
+cd ar-adm
+gg >> ~/development/workspace/log/ar-adm.log &
+cd -
+echo "ar-adm-partner: start"
+cd ar-adm-partner
+gg >> ~/development/workspace/log/ar-adm-partner.log &
+cd -
+echo "ar-front: start"
+cd ar-front
+gg >> ~/development/workspace/log/ar-front.log &
+cd -
+echo "ar-checkout: start"
+cd ar-checkout
+gg >> ~/development/workspace/log/ar-checkout.log &
+cd -
+cd
+echo "monitorando o processamento"
+while :
+do
+	sysctl -n vm.loadavg
+	sleep 1
+done

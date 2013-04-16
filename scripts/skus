@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd development/workspace/ar-models/db-model/elasticsearch; 
+chmod +x ./skus.json; ./skus.json
+cd -;
+

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+echo "Moving to default directory: ~/development/workspace"
+cd ~/development/workspace/
+
+echo "removing, downloading and cleaning: ar-front"
+rm -rf ar-front && git clone git@github.com:autorei/ar-front.git
+cd ar-front; grails refresh-dependencies; grails integrate-with --eclipse; cd -
+
+echo "removing, downloading and cleaning: ar-adm"
+rm -rf ar-adm && git clone git@github.com:autorei/ar-adm.git
+cd ar-adm; grails refresh-dependencies; grails integrate-with --eclipse; cd -
+
+echo "removing, downloading and cleaning: ar-adm-partner"
+rm -rf ar-adm-partner && git clone git@github.com:autorei/ar-adm-partner.git
+cd ar-adm-partner; grails refresh-dependencies; grails integrate-with --eclipse; cd -
+
+echo "removing, downloading and cleaning: ar-models"
+rm -rf ar-models && git clone git@github.com:autorei/ar-models.git
+cd ar-models; grails refresh-dependencies; grails integrate-with --eclipse; cd -
+
+echo "copying liquibase model files to ar-models"
+cp liquibase-data.properties development/workspace/ar-models/db-model/migrations
+cp liquibase-structure.properties development/workspace/ar-models/db-model/migrations
+

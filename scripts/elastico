@@ -1,0 +1,19 @@
+#!/bin/bash
+
+cd
+
+echo "** elasticsearch: start"
+~/development/env/elasticsearch-0.19.8/bin/service/elasticsearch start
+sleep 2
+
+echo "** elasticsearch: delete index skus"
+curl -XDELETE 'http://localhost:9200/skus/'
+
+echo "** elasticsearch: add index skus"
+cd ~/development/workspace/ar-models/db-model/elasticsearch 
+chmod +x ./skus.json 
+./skus.json
+cd -;
+
+sleep 2
+es start

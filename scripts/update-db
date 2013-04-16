@@ -1,0 +1,17 @@
+#!/bin/bash
+
+cd ~/development/workspace/ar-models/db-model/migrations/
+
+echo 'atualizando o arquivo liquibase.properties'
+cat liquibase-structure.properties > liquibase.properties
+echo 'incrementando as tabelas do db'
+java -jar liquibase.jar update
+echo 'atualizando o arquivo liquibase.properties'
+cat liquibase-data.properties > liquibase.properties
+echo 'populando as tabelas do db'
+java -jar liquibase.jar update
+echo 'voltando o liquibase.properties ao normal'
+cat liquibase-structure.properties > liquibase.properties
+
+cd
+

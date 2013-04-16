@@ -1,0 +1,77 @@
+#!/bin/bash
+
+echo "closing all grails servers"
+killall java
+sleep 6
+
+echo "resetting all logs"
+echo "0 ar-adm" > ~/development/workspace/log/ar-adm.log 
+echo "0 ar-adm-partner" > ~/development/workspace/log/ar-adm-partner.log 
+echo "0 ar-front" > ~/development/workspace/log/ar-front.log 
+echo "0 ar-checkout" > ~/development/workspace/log/ar-checkout.log 
+
+export MY_VAR=MY_VAL
+args=
+for arg in "$@";
+do
+	case $arg in
+
+		adm)
+		TARGET_SERVER='ar-adm'
+		;;
+
+		partner)
+		TARGET_SERVER='ar-adm-partner'
+		;;
+
+		front)
+		TARGET_SERVER='ar-front'
+		;;
+
+		checkout)
+		TARGET_SERVER='ar-checkout'
+		;;
+
+		*)
+		TARGET_SERVER='all'
+
+	esac
+
+	if [ $TARGET_SERVER == 'all' ]; then
+
+		echo "starting servers"
+		cd
+		cd development/workspace
+		echo "ar-adm: start"
+		cd ar-adm
+		gg >> ~/development/workspace/log/ar-adm.log &
+		cd -
+		echo "ar-adm-partner: start"
+		cd ar-adm-partner
+		gg >> ~/development/workspace/log/ar-adm-partner.log &
+		cd -
+		echo "ar-front: start"
+		cd ar-front
+		gg >> ~/development/workspace/log/ar-front.log &
+		cd -
+		echo "ar-checkout: start"
+		cd ar-checkout
+		gg >> ~/development/workspace/log/ar-checkout.log &
+		cd -
+
+	else
+
+		echo "starting $TARGET_SERVER"
+		cd
+		cd development/workspace
+		echo "$TARGET_SERVER: start"
+		cd $TARGET_SERVER 
+		gg >> ~/development/workspace/log/$TARGET_SERVER.log &
+		cd -
+
+	fi
+
+done
+
+es start
+~/development/env/elasticsearch-0.19.8/bin/service/elasticsearch start

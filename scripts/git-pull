@@ -1,0 +1,15 @@
+#!/bin/bash
+
+cd ~/development/workspace/
+echo "git: updating - ar-adm"
+cd ar-adm; git pull
+echo "git: updating - ar-adm-partner"
+cd -; cd ar-adm-partner; git pull
+echo "git: updating - ar-checkout"
+cd -; cd ar-checkout; git pull
+echo "git: updating - ar-front"
+cd -; cd ar-front; git pull
+echo "git: updating - ar-models"
+cd -; cd ar-models; git pull
+echo "git: updating - ar-templates"
+cd -; cd ar-templates; git pull
